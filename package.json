@@ -1,22 +1,22 @@
 {
   "name": "businesswords",
   "version": "1.0.0",
-  "description": "Posts a Google Image Search result for every word.",
+  "description": "GET seamless power words 4 business! A trunkey solution from Smidgeo!",
   "main": "index.js",
   "scripts": {
     "test": "make test"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:jimkang/everybusinessword.git"
+    "url": "git@github.com:jimkang/businesswords.git"
   },
   "keywords": [],
   "author": "Jim Kang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jimkang/everybusinessword/issues"
+    "url": "https://github.com/jimkang/businesswords/issues"
   },
-  "homepage": "https://github.com/jimkang/everybusinessword",
+  "homepage": "https://github.com/jimkang/businesswords",
   "devDependencies": {
     "tape": "^3.0.3"
   },

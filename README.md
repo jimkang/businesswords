@@ -1,7 +1,7 @@
 businesswords
 ==================
 
-Posts business words.
+GET seamless power words 4 business! A trunkey solution from [Smidgeo](http://smidgeo.com)!
 
 Installation
 ------------
@@ -16,7 +16,8 @@ Then, create a `config.js` file in the project root that contains [Twitter API k
         consumer_secret: 'asdfasdjfbkjqwhbefubvskjhfbgasdjfhgaksjdhfgaksdxvc',
         access_token: '9999999999-zxcvkljhpoiuqwerkjhmnb,mnzxcvasdklfhwer',
         access_token_secret: 'opoijkljsadfbzxcnvkmokwertlknfgmoskdfgossodrh'
-      }
+      },
+      wordnikAPIKey: 'your key'
     };
 
 Usage
