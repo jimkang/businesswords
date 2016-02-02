@@ -16,11 +16,12 @@ var alternatePrefixes = [
   'Ninja',
   '30,000 ft. level',
   'Out-of-the-Box',
-  'Double Down',
   'Futureproof',
   'Facetime',
   'Low-hanging fruit',
-  'Pivot'
+  'Pivot',
+  'Digital',
+  'Social'
 ];
 
 var suffixes = [
@@ -32,13 +33,16 @@ var suffixes = [
   'Monetization',
   'Content',
   'Deliverable',
-  'Value-Add'
+  'Value-Add',
+  'Enablement',
+  'Long Tail',
+  'Double Down'
 ];
 
 function businessify(base, done) {
   var word;
 
-  if (probable.roll(4) === 0) {
+  if (probable.roll(3) === 0) {
     word = base + ' ' + probable.pickFromArray(suffixes);
   }
   else if (probable.roll(2) === 0) {
