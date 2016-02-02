@@ -10,18 +10,17 @@ var alternatePrefixes = [
   'Seamless',
   'Turnkey',
   'Win-Win',
-  'At the end of the day:',
   'Game Changer',
   'Rock Star',
   'Ninja',
-  '30,000 ft. level',
   'Out-of-the-Box',
   'Futureproof',
   'Facetime',
   'Low-hanging fruit',
   'Pivot',
   'Digital',
-  'Social'
+  'Social',
+  'Zero-Sum'
 ];
 
 var suffixes = [
@@ -37,17 +36,35 @@ var suffixes = [
   'Enablement',
   'Long Tail',
   'Double Down',
-  'Swim Lane'
+  'Swim Lane',
+  'Intelligence',
+  'Agreeance',
+  'of Opportunity',
+  'Unbundling',
+  'Equity'
 ];
+
+var prefixSuffixPairs = [
+  ['The', 'Space']
+];
+
+var alternateDecoratorTable = probable.createRangeTable([
+  [[0, 4], (base) => probable.pickFromArray(alternatePrefixes) + ' ' + base],
+  [[5, 8], (base) => base + ' ' + probable.pickFromArray(suffixes)],
+  [
+    [9, 9],
+    (base) => {
+      var pair = probable.pickFromArray(prefixSuffixPairs);
+      return pair[0] + ' ' + base + ' ' + pair[1];
+    }
+  ]
+]);
 
 function businessify(base, done) {
   var word;
 
-  if (probable.roll(3) === 0) {
-    word = base + ' ' + probable.pickFromArray(suffixes);
-  }
-  else if (probable.roll(2) === 0) {
-    word = probable.pickFromArray(alternatePrefixes) + ' ' + base;
+  if (probable.roll(5) === 0) {
+    word = alternateDecoratorTable.roll()(base);
   }
   else {
     word = 'Business ' + base;
