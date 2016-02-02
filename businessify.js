@@ -36,7 +36,8 @@ var suffixes = [
   'Value-Add',
   'Enablement',
   'Long Tail',
-  'Double Down'
+  'Double Down',
+  'Swim Lane'
 ];
 
 function businessify(base, done) {
