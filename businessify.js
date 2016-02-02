@@ -49,11 +49,15 @@ var prefixSuffixPairs = [
 ];
 
 var alternateDecoratorTable = probable.createRangeTable([
-  [[0, 4], (base) => probable.pickFromArray(alternatePrefixes) + ' ' + base],
-  [[5, 8], (base) => base + ' ' + probable.pickFromArray(suffixes)],
+  [[0, 4], function prefix(base) {
+    return probable.pickFromArray(alternatePrefixes) + ' ' + base;
+  }],
+  [[5, 8], function suffix(base) {
+    return base + ' ' + probable.pickFromArray(suffixes);
+  }],
   [
     [9, 9],
-    (base) => {
+    function bookend(base) {
       var pair = probable.pickFromArray(prefixSuffixPairs);
       return pair[0] + ' ' + base + ' ' + pair[1];
     }
