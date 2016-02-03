@@ -42,7 +42,8 @@ var suffixes = [
   'Agreeance',
   'Opportunity',
   'Unbundling',
-  'Equity'
+  'Equity',
+  'Operationalization'
 ];
 
 var prefixSuffixPairs = [
