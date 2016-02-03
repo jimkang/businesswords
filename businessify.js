@@ -1,6 +1,7 @@
 var callNextTick = require('call-next-tick');
 var probable = require('probable');
 var toTitleCase = require('titlecase');
+var canonicalizer = require('canonicalizer');
 
 var alternatePrefixes = [
   'Cross-functional',
@@ -21,7 +22,8 @@ var alternatePrefixes = [
   'Digital',
   'Social',
   'Zero-Sum',
-  'Opportunity'
+  'Opportunity',
+  'Smidgeo'
 ];
 
 var suffixes = [
@@ -50,13 +52,15 @@ var prefixSuffixPairs = [
   ['The', 'Space']
 ];
 
+var smidgeoReadyStartLetters = [
+  'c', 'h', 'k', 'm', 'p', 'w', 'y'
+];
+
 var alternateDecoratorTable = probable.createRangeTable([
   [[0, 4], function prefix(base) {
     return probable.pickFromArray(alternatePrefixes) + ' ' + base;
   }],
-  [[5, 8], function suffix(base) {
-    return base + ' ' + probable.pickFromArray(suffixes);
-  }],
+  [[5, 8], suffix],
   [
     [9, 9],
     function bookend(base) {
@@ -73,10 +77,19 @@ var alternateDecoratorTable = probable.createRangeTable([
   ]
 ]);
 
-function businessify(base, done) {
+function suffix(base) {
+  return base + ' ' + probable.pickFromArray(suffixes);
+}
+
+function businessify(theBase, done) {
+  var base = canonicalizer.getSingularAndPluralForms(theBase)[0];
   var word;
 
-  if (probable.roll(4) === 0) {
+  if (smidgeoReadyStartLetters.indexOf(base.charAt(0).toLowerCase()) !== -1 &&
+    probable.roll(2) === 0) {
+    word = smidgify(base);
+  }
+  else if (probable.roll(4) === 0) {
     word = alternateDecoratorTable.roll()(base);
   }
   else {
@@ -84,6 +97,15 @@ function businessify(base, done) {
   }
 
   callNextTick(done, null, toTitleCase(word));
+}
+
+
+function smidgify(base) {
+  var word = 'Smidgeo S' + base.toLowerCase();
+  if (probable.roll(3) === 0) {
+    word = suffix(word);
+  }
+  return word;
 }
 
 module.exports = businessify;
