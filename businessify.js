@@ -20,7 +20,8 @@ var alternatePrefixes = [
   'Pivot',
   'Digital',
   'Social',
-  'Zero-Sum'
+  'Zero-Sum',
+  'Opportunity'
 ];
 
 var suffixes = [
@@ -39,7 +40,7 @@ var suffixes = [
   'Swim Lane',
   'Intelligence',
   'Agreeance',
-  'of Opportunity',
+  'Opportunity',
   'Unbundling',
   'Equity'
 ];
@@ -61,13 +62,20 @@ var alternateDecoratorTable = probable.createRangeTable([
       var pair = probable.pickFromArray(prefixSuffixPairs);
       return pair[0] + ' ' + base + ' ' + pair[1];
     }
+  ],
+  [
+    [10, 10],
+    function prefixAndSuffix(base) {
+      return probable.pickFromArray(alternatePrefixes) + ' ' + base
+        + ' ' + probable.pickFromArray(suffixes);
+    }
   ]
 ]);
 
 function businessify(base, done) {
   var word;
 
-  if (probable.roll(5) === 0) {
+  if (probable.roll(4) === 0) {
     word = alternateDecoratorTable.roll()(base);
   }
   else {
