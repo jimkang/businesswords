@@ -1,5 +1,16 @@
+PROJECTNAME = businesswords
 HOMEDIR = $(shell pwd)
-GITDIR = /var/repos/businesswords.git
+USER = bot
+SERVER = smidgeo
+SSHCMD = ssh $(USER)@$(SERVER)
+APPDIR = /opt/$(PROJECTNAME)
+
+pushall: sync
+	git push origin master
+
+sync:
+	rsync -a $(HOMEDIR) $(USER)@$(SERVER):/opt --exclude node_modules/
+	$(SSHCMD) "cd $(APPDIR) && npm install"
 
 run:
 	node post-business-tweet.js
@@ -8,15 +19,3 @@ template-offsets:
 	node node_modules/.bin/get-file-line-offsets-in-json data/words.txt > \
 		data/wordslineoffsets.json
 
-sync-worktree-to-git:
-	git --work-tree=$(HOMEDIR) --git-dir=$(GITDIR) checkout -f
-
-npm-install:
-	cd $(HOMEDIR)
-	npm install
-	npm prune
-
-post-receive: sync-worktree-to-git npm-install
-
-pushall:
-	git push origin master && git push server master
