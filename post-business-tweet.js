@@ -1,3 +1,5 @@
+/* global process */
+
 var config = require('./config');
 var callNextTick = require('call-next-tick');
 var Twit = require('twit');
@@ -7,7 +9,7 @@ var businessify = require('./businessify');
 
 var dryRun = false;
 if (process.argv.length > 2) {
-  dryRun = (process.argv[2].toLowerCase() == '--dry');
+  dryRun = process.argv[2].toLowerCase() == '--dry';
 }
 
 var wordnok = createWordnok({
@@ -16,15 +18,7 @@ var wordnok = createWordnok({
 
 var twit = new Twit(config.twitter);
 
-async.waterfall(
-  [
-    getTopics,
-    pickFirst,
-    businessify,
-    postTweet
-  ],
-  wrapUp
-);
+async.waterfall([getTopics, pickFirst, businessify, postTweet], wrapUp);
 
 function getTopics(done) {
   var opts = {
@@ -33,14 +27,13 @@ function getTopics(done) {
       limit: 1
     }
   };
-  wordnok.getRandomWords(opts, done);  
+  wordnok.getRandomWords(opts, done);
 }
 
 function pickFirst(words, done) {
   if (words.length < 1) {
     callNextTick(done, new Error('No topics found.'));
-  }
-  else {
+  } else {
     callNextTick(done, null, words[0]);
   }
 }
@@ -49,10 +42,9 @@ function postTweet(text, done) {
   if (dryRun) {
     console.log('Would have tweeted:', text);
     callNextTick(done);
-  }
-  else {
+  } else {
     var body = {
-      status: text,
+      status: text
     };
     twit.post('statuses/update', body, done);
   }

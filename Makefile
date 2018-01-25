@@ -19,3 +19,5 @@ template-offsets:
 	node node_modules/.bin/get-file-line-offsets-in-json data/words.txt > \
 		data/wordslineoffsets.json
 
+prettier:
+	prettier --single-quote --write "**/*.js"
